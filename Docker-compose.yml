@@ -1,0 +1,27 @@
+version: '3.7'
+services: 
+   
+    eureka-dis-server:
+        image: kavipriyanakkeeran99/eureka-dis-server:0.1
+        ports: 
+            - "8761:8761"
+        restart: always
+        networks:
+            - app-network
+    
+    menuitem-service-1:
+        image: kavipriyanakkeeran99/menuitem-service-1
+        ports: 
+            - "8090:8090"
+        restart: always
+        environment:
+            EUREKA_HOST: eureka-server
+                
+        depends_on:
+            - eureka-server
+        networks:
+            - app-network
+ 
+# Networks to be created to facilitate communication between containers
+networks:
+    app-network:  
